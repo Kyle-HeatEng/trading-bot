@@ -1,0 +1,25 @@
+# Environment
+.env
+.env.local
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Data & logs
+data/
+logs/
+*.log
+
+# Bun lockfile (commit this for reproducible installs)
+# bun.lockb  <- keep this
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/

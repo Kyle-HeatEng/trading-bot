@@ -1,0 +1,23 @@
+services:
+  trading-bot:
+    build:
+      context: ./apps/bot
+      dockerfile: Dockerfile
+    container_name: trading-bot
+    restart: unless-stopped          # keeps running in the background; survives Mac restarts if Docker is set to start on login
+    env_file: .env                   # loads KRAKEN_API_KEY, ANTHROPIC_API_KEY, etc.
+    environment:
+      - TRADING_MODE=${TRADING_MODE:-paper}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - DB_PATH=/app/data/trading-bot.db
+      - SQLITE_STALE_GAP_MINUTES=${SQLITE_STALE_GAP_MINUTES:-60}
+      - MAX_DAILY_LOSS_PCT=${MAX_DAILY_LOSS_PCT:-3}
+      - MAX_OPEN_EXPOSURE_PCT=${MAX_OPEN_EXPOSURE_PCT:-3.3}
+    volumes:
+      - ./data:/app/data             # SQLite DB persists across container restarts
+      - ./apps/bot/config/config.yaml:/app/config/config.yaml:ro  # live config edits without rebuild
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"
+        max-file: "5"

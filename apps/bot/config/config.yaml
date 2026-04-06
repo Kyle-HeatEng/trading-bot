@@ -1,0 +1,68 @@
+# Trading Bot Configuration
+# All strategy parameters — hot-reloadable at runtime
+
+trading:
+  pair: "XBT/USD" # Kraken WebSocket pair name
+  restPair: "XBTUSD" # Kraken REST pair name
+  timeframeSec: 60 # Primary candle timeframe (seconds)
+  mode: "paper" # Overridden by TRADING_MODE env var
+
+strategy:
+  # Entry conditions
+  emaFast: 9
+  emaSlow: 21
+  emaTrend: 50
+  rsiPeriod: 14
+  rsiMin: 40
+  rsiMax: 65
+  obImbalanceMin: 0.15 # Minimum orderbook imbalance for long entry
+  aiConfidenceMin: 0.65 # Minimum Claude confidence to act on signal
+  polymarketBullishMin: 0.50 # Minimum Polymarket YES price to allow longs
+
+  # Exit conditions
+  takeProfitPct: 2 # 0.6% take-profit
+  stopLossPct: 1 # 0.3% stop-loss
+
+  # AI gating
+  aiCallOnSignal: true # Call Claude when rule signal != HOLD
+  aiCallEveryNCandles: 5 # Also call Claude every N candles for HOLD validation
+
+sizing:
+  fixedFractional: 0.01 # Target slice per new leg (capped by maxOpenExposurePct room)
+  minBtc: 0.0001 # Kraken minimum order size (BTC)
+  maxBtc: 0.01 # Hard cap per trade
+
+risk:
+  maxDailyLossPct: 3 # 3% daily loss limit — pauses all trading
+  maxOpenExposurePct: 3.3 # Max concurrent gross notional / equity (~3.3% fits two ~1.5% legs)
+  minHoursBetweenNewPositions: 0 # Per-direction spacing; 0 allows second leg same day (still capped by exposure)
+  circuitBreakerLosses: 3 # Consecutive losses before circuit breaker trips
+  circuitBreakerPauseMin: 30 # Minutes to pause after circuit breaker
+  slippageTolerancePct: 0.05 # 0.05% max acceptable slippage
+
+execution:
+  preferLimitOrders: true # Use limit orders (lower maker fees)
+  limitOrderTimeoutSec: 30 # Convert to market if not filled within N seconds
+  maxRetries: 3
+
+indicators:
+  warmupCandles: 60 # Candles needed before signals are emitted
+  bollingerPeriod: 20
+  bollingerStdDev: 2
+  macdFast: 12
+  macdSlow: 26
+  macdSignal: 9
+  stochasticK: 14
+  stochasticD: 3
+  mfiPeriod: 14
+  vwapDeviation: true
+
+sentiment:
+  polymarketRefreshSec: 120 # How often to poll Polymarket (seconds)
+  polymarketDiscoverMin: 15 # How often to re-discover markets (minutes)
+  fearGreedRefreshMin: 60 # How often to poll Fear & Greed Index (minutes)
+  polymarketMinLiquidity: 1000 # Min USDC open interest to consider a market
+
+monitoring:
+  dashboardRefreshSec: 5 # Terminal dashboard refresh interval
+  journalFlushSec: 10 # How often to flush trade journal to disk

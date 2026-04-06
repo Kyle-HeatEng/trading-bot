@@ -1,0 +1,17 @@
+{
+  "name": "trading-bot-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": ["apps/*"],
+  "scripts": {
+    "bot": "bun run --filter trading-bot start",
+    "bot:paper": "bun run --filter trading-bot paper",
+    "bot:backtest": "bun run --filter trading-bot backtest",
+    "bot:fetch-historical": "bun run --filter trading-bot fetch-historical",
+    "bot:test": "bun run --filter trading-bot test",
+    "bot:typecheck": "bun run --filter trading-bot typecheck",
+    "web": "bun run --filter trading-bot-ui dev",
+    "web:build": "bun run --filter trading-bot-ui build",
+    "web:test": "bun run --filter trading-bot-ui test"
+  }
+}

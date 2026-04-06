@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #eef1f8;
+  --foreground: #0d1525;
+  --muted-foreground: #5a6882;
+  --panel: #ffffff;
+  --panel-subtle: #f4f6fb;
+  --panel-hover: #edf0f8;
+  --panel-border: rgba(15, 30, 70, 0.12);
+  --accent: #2563eb;
+  --accent-strong: #1d4ed8;
+  --accent-soft: #5b8ef5;
+  --profit: #16a34a;
+  --loss: #dc2626;
+  --ring: rgba(37, 99, 235, 0.35);
+  --header-chip: rgba(255, 255, 255, 0.9);
+  --card: var(--panel);
+  --card-foreground: var(--foreground);
+  --popover: var(--panel);
+  --popover-foreground: var(--foreground);
+  --primary: var(--accent);
+  --primary-foreground: white;
+  --secondary: var(--panel-subtle);
+  --secondary-foreground: var(--foreground);
+  --muted: var(--panel-subtle);
+  --accent-foreground: white;
+  --destructive: var(--loss);
+  --destructive-foreground: white;
+  --border: var(--panel-border);
+  --input: var(--panel-border);
+  --radius: 2px;
+}
+
+.dark {
+  --background: #060a12;
+  --foreground: #dce8ff;
+  --muted-foreground: #4d5f7a;
+  --panel: #0c1525;
+  --panel-subtle: #091020;
+  --panel-hover: #101e32;
+  --panel-border: rgba(255, 255, 255, 0.09);
+  --accent: #3b7dff;
+  --accent-strong: #2563eb;
+  --accent-soft: #7da8ff;
+  --profit: #22c55e;
+  --loss: #ef4444;
+  --ring: rgba(59, 125, 255, 0.4);
+  --header-chip: rgba(12, 21, 37, 0.95);
+  --card: var(--panel);
+  --card-foreground: var(--foreground);
+  --popover: var(--panel);
+  --popover-foreground: var(--foreground);
+  --primary: var(--accent);
+  --primary-foreground: white;
+  --secondary: var(--panel-subtle);
+  --secondary-foreground: var(--foreground);
+  --muted: var(--panel-subtle);
+  --accent-foreground: white;
+  --destructive: var(--loss);
+  --destructive-foreground: white;
+  --border: var(--panel-border);
+  --input: var(--panel-border);
+  --radius: 2px;
+}
+
+@theme inline {
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --font-display: 'IBM Plex Sans', ui-sans-serif, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  background: var(--background);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image:
+    linear-gradient(var(--panel-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--panel-border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.5;
+}
+
+a {
+  color: inherit;
+}
+
+code {
+  border-radius: var(--radius);
+  border: 1px solid var(--panel-border);
+  background: var(--panel-subtle);
+  padding: 2px 8px;
+  font-family: var(--font-mono);
+}
+
+.page-wrap {
+  width: min(1480px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Live strip ───────────────────────────────────────── */
+
+.metric-panel {
+  padding: 1.25rem 1.5rem;
+  background: var(--panel);
+}
+
+.metric-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--muted-foreground);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.metric-value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 1.75rem;
+  line-height: 1;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.metric-value-sm {
+  margin-top: 0.25rem;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 1rem;
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.metric-subtitle {
+  margin: 0;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted-foreground);
+}
+
+/* ─── Trade detail ─────────────────────────────────────── */
+
+.trade-detail-label {
+  margin: 0;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.trade-detail-copy {
+  margin-top: 0.35rem;
+  font-size: 0.9rem;
+  color: var(--foreground);
+}

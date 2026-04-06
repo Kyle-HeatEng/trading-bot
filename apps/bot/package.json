@@ -1,0 +1,31 @@
+{
+  "name": "trading-bot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "bun run src/main.ts",
+    "paper": "TRADING_MODE=paper bun run src/main.ts",
+    "backtest": "bun run backtest/engine.ts",
+    "fetch-historical": "bun run scripts/fetchHistorical.ts",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@polymarket/clob-client": "^5.8.1",
+    "chalk": "^5.4.1",
+    "node-kraken-api": "^2.2.2",
+    "openai": "^6.33.0",
+    "pino": "^10.3.1",
+    "technicalindicators": "^3.1.0",
+    "ws": "^8.18.0",
+    "yaml": "^2.7.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/ws": "^8.5.14",
+    "pino-pretty": "^13.1.3",
+    "typescript": "^5.7.0"
+  }
+}
